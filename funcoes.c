@@ -1221,24 +1221,6 @@ void menuPrincipal()
             Fila *f1 = criaFila();
             Fila *f2 = criaFila();
 
-            // Insere os alunos na fila 1
-            for (int i = 0; i < 4; i++)
-            {
-                insereFila(f1, a[i]);
-
-                if (filaVazia(f1))
-                    printf("\nErro!!!!!!\n");
-            }
-
-            // Insere os alunos na fila 2
-            for (int i = 0; i < 4; i++)
-            {
-                insereFila(f2, a2[i]);
-
-                if (filaVazia(f2))
-                    printf("\nErro!!!!!!\n");
-            }
-
             menu(f1, f2);
         }
         break;
