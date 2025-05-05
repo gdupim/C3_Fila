@@ -111,32 +111,43 @@ int filaVazia(Fila *fi)
     return 0;
 }
 
-int filaSplit(Fila *f1, Fila *f2, int mat)
+int filaSplit(Fila *f1, Fila *f2, int n)
 {
-    if (f1 == NULL || f2 == NULL || filaVazia(f1) || !filaVazia(f2) || f1->final->dados.matricula == mat)
+    if (f1 == NULL || f2 == NULL)
         return 0;
 
-    Elem *aux = f1->inicio;
+    Elem *atual = f1->inicio;
+    Elem *anterior = NULL;
 
-    // percorre a fila f1 até encontrar o elemento com a matrícula desejada
-    while (aux != NULL && aux->dados.matricula != mat)
+    // Percorre a fila até encontrar a matrícula n
+    while (atual != NULL && atual->dados.matricula != n)
     {
-        aux = aux->prox;
-
-        if (aux != NULL)
-        {
-            f2->inicio = aux->prox;
-            f2->final = f1->final;
-            f1->final = aux;
-            aux->prox = NULL;
-        }
-        else
-        {
-            return 0;
-        }
-        return 1;
+        anterior = atual;
+        atual = atual->prox;
     }
-    return 0;
+
+    // Se não encontrou a matrícula n, retorna 0
+    if (atual == NULL)
+        return 0;
+
+    // Ajusta a segunda fila para começar após a primeira ocorrência de n
+    if (anterior != NULL)
+    {
+        f2->inicio = atual->prox;
+        f2->final = f1->final;
+        f1->final = anterior;
+        anterior->prox = NULL;
+    }
+    else
+    {
+        // Caso especial: n está no início da fila
+        f2->inicio = atual->prox;
+        f2->final = f1->final;
+        f1->inicio = NULL;
+        f1->final = NULL;
+    }
+
+    return 1;
 }
 
 /*
@@ -286,7 +297,7 @@ int pushFilas(PilhaFilas *pilha, Fila *fi)
 }
 
 /*
- * A fim de deixar o código mais limpo e menor
+ * A final de deixar o código mais limpo e menor
  * não estarei colocando no main o B e C, tendo em vista que são a mesma lógica do A
  * apenas foi adicionado duas novas structs, mudado o nome das funções e das variaveis utilizadas
  */
@@ -653,7 +664,7 @@ void filaCrescente(Fila *f1, Fila *f2, Fila *f3)
 //? Exercicio 7
 /*
 Implemente a função reverso, que reposiciona os elementos na fila de
-tal forma que o início da fila torna-se o fim, e vice-versa.
+tal forma que o início da fila torna-se o final, e vice-versa.
 */
 
 void reverso(Fila *fi)
@@ -859,6 +870,7 @@ void menuPrincipal()
             Elem *no = f1->inicio;
 
             // Imprime os alunos da fila 1
+            printf("Fila 1:\n");
             while (no != NULL)
             {
                 printf("Matricula: %d\n", no->dados.matricula);
@@ -868,15 +880,9 @@ void menuPrincipal()
                 no = no->prox;
             }
 
-            // Separar a fila 1 em duas filas
-            if (filaSplit(f1, f2, 2))
-            {
-                printf("\nFila 1 separada.\n");
-            }
-            else
-            {
-                printf("\nErro ao separar a fila 1.\n");
-            }
+            // Separação das filas
+            filaSplit(f1, f2, 1); // separa a fila 1 e 2, sendo a matricula 3 o divisor
+            printf("\nFila 1 e 2 separadas com a matricula 3:\n");
 
             printf("\nFila 1:\n");
             no = f1->inicio;
