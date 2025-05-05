@@ -991,18 +991,18 @@ void menuPrincipal()
 
             while (no != NULL)
             {
-                printf("Nº %d ", no->num);
+                printf("\nNº %d ", no->num);
                 no = no->prox;
             }
 
             inverteFila(f5);
 
-            printf("Fila invertida:\n");
+            printf("\n\nFila invertida:\n");
             Elem *noInv = f5->inicio;
 
             while (noInv != NULL)
             {
-                printf("Nº %d ", noInv->num);
+                printf("\nNº %d ", noInv->num);
                 noInv = noInv->prox;
             }
 
@@ -1038,8 +1038,12 @@ void menuPrincipal()
                 no = no->prox;
             }
 
+            printf("\nFurando a fila...\n");
             struct aluno a3[1] = {{9, "Eduardo", 8}}; // aluno que vai furar a fila
             furaFila(f1, a3[0]);                      // fura a fila
+
+            no = f1->inicio;
+            printf("\nFila 1 após furar:\n");
 
             // Imprime os alunos da fila 1 após um ter furado a fila:
             while (no != NULL)
@@ -1190,7 +1194,7 @@ void menuPrincipal()
             printf("\nFila original:\n");
             while (no != NULL)
             {
-                printf("Nº %d ", no->num);
+                printf("\nNº %d ", no->num);
                 printf("\n-------------------------------\n");
                 no = no->prox;
             }
@@ -1200,7 +1204,7 @@ void menuPrincipal()
             printf("\nFila invertida:\n");
             while (no != NULL)
             {
-                printf("Nº %d ", no->num);
+                printf("\nNº %d ", no->num);
                 printf("\n-------------------------------\n");
                 no = no->prox;
             }
